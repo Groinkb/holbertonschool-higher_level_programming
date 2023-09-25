@@ -1,2 +1,2 @@
-print("Programmingg is like building a multilingual puzzle")
+print("hello-world")
 
