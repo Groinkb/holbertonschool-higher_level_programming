@@ -4,7 +4,7 @@ import json
 
 
 def to_json_string(my_obj):
-    """fct that returns the JSON representation of an object
+    """fct that returns the JSON representation of an objects
 
     Args:
         my_obj (_type_): _description_
