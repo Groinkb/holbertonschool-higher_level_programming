@@ -1,7 +1,10 @@
-def lookup(obj):
-    return [attr for attr in dir(obj)]
+#!/usr/bin/python3
+"""print all attributes from an object"""
 
-# Exemple d'utilisation :
-result = lookup("Bonjour, le monde !")
-for item in result:
-    print(item)
+
+def lookup(obj):
+    """commentaire pour dire bcp"""
+    attributes = []
+    for i in dir(obj):
+        attributes.append(i)
+    return attributes
