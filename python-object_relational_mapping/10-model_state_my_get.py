@@ -1,31 +1,22 @@
 #!/usr/bin/python3
-""" prints the State object with the name passed as argument
-from the database hbtn_0e_6_usa """
-
-import sys
+"""a script that lists all State objects
+that contain the letter a from the database"""
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
+from sqlalchemy.orm import sessionmaker
+from sys import argv
 
 if __name__ == "__main__":
-    mysql_username = sys.argv[1]
-    mysql_password = sys.argv[2]
-    database_name = sys.argv[3]
-    state_name = sys.argv[4]
-
-    engine = create_engine('mysql://{}:{}@localhost:3306/{}'
-                           .format(
-                               mysql_username,
-                               mysql_password,
-                               database_name
-                               ), pool_pre_ping=True)
-
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    result = session.query(State).filter(State.name == state_name).first()
-
-    if result:
-        print(result.id)
-    else:
+    """connecting to database"""
+    con = "mysql://{}:{}@localhost:{}/{}".format(
+        argv[1], argv[2], 3306, argv[3])
+    engine = create_engine(con)
+    make_session = sessionmaker(bind=engine)
+    session = make_session()
+    res = session.query(State).distinct().filter(
+        State.name.like("%{}%".format(argv[4]))).all()
+    if not res:
         print("Not found")
+    else:
+        for i in res:
+            print("{}".format(i.id))
